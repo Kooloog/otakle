@@ -21,7 +21,7 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     if (getCookie(name)) {
-        document.cookie = name + "=; Max-Age=0; path=/; domain=" + location.hostname;
+        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 }
 
@@ -205,7 +205,7 @@ var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
 
-if (getCookie("attempts1") == null) firstTimeCookies(today);
+if (getCookie("attemptsTotal") == null) firstTimeCookies(today);
 
 //Getting answer to today's word, and storing all info needed
 let answerData;
