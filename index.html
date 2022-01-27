@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Otakle - Anime and Gaming Wordle</title>
+</head>
+
+<!-- Main content -->
+
+<body>
+    <h1>Otakle</h1>
+    <p style="margin-top:-20px; font-size:14px;">A Wordle version for anime and gaming characters</p>
+
+    <table class='center', id='grid'>
+        <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+        </tr>
+        <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+        </tr>
+        <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+        </tr>
+        <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+        </tr>
+        <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+        </tr>
+        <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+        </tr>
+    </table></br></br>
+
+    <table class='center' , id='keys'>
+        <tr>
+            <td class='keyboard'><input class='keybutton' type='button' value='Q' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='W' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='E' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='R' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='T' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='Y' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='U' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='I' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='O' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='P' onclick='keyboardKey(this);' /></td>
+        </tr>
+        <tr>
+            <td class='keyboard'><input class='keybutton' type='button' value='A' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='S' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='D' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='F' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='G' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='H' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='J' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='K' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='L' onclick='keyboardKey(this);' /></td>
+        </tr>
+        <tr>
+            <td class='keyboardspecial'><input class='keybutton' type='button' value='ENTER'
+                    onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='Z' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='X' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='C' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='V' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='B' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='N' onclick='keyboardKey(this);' /></td>
+            <td class='keyboard'><input class='keybutton' type='button' value='M' onclick='keyboardKey(this);' /></td>
+            <td class='keyboardspecial'><input class='keybutton' type='button' value='BACK'
+                    onclick='keyboardKey(this);' /></td>
+        </tr>
+    </table>
+
+    <div id="correct" class="correctMessage" disabled></div>
+    <div id="copied" class="correctMessage" disabled></div>
+    <div id="invalid" class="incorrectMessage" disabled>Not in character list</div>
+
+    <div id="results" class="results">
+        <input type="button" class="xbutton" value="X" onClick="hideResults();"></input>
+        <table>
+            <tr>
+                <td style="width:30%; padding-left:15px;"><img id="picture" style="width:100%"></img></td>
+                <td style="padding-right:15px">
+                    <p id="answerinfo"></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 style="padding:8px;">
+                    <table style="width:97%">
+                        <p>Guess Distribution</p>
+                        <tr>
+                            <td style="width:5%">1</td>
+                            <td>
+                                <div id="attempts1" class="bargraph">.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:5%">2</td>
+                            <td>
+                                <div id="attempts2" class="bargraph">.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:5%">3</td>
+                            <td>
+                                <div id="attempts3" class="bargraph">.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:5%">4</td>
+                            <td>
+                                <div id="attempts4" class="bargraph">.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:5%">5</td>
+                            <td>
+                                <div id="attempts5" class="bargraph">.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:5%">6</td>
+                            <td>
+                                <div id="attempts6" class="bargraph">.</div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="padding-top:15px">
+                        <input type="button" class="copybutton" value="Copy result to clipboard"
+                            onClick="copyToClipboard();"></input>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+<script src="functions.js"></script>
+
+</html>
