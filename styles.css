@@ -1,0 +1,199 @@
+body, html {
+    background: #111;
+    color: white;
+    font-family: 'Arial';
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    display: inline-block;
+    margin: 2px;
+    padding: 2px;
+    font-size: 36px;
+    font-weight: bold;
+    border: 1px solid gray;
+}
+
+.keyboard {
+    width: 36px;
+    height: 52px;
+    display: inline-block;
+    margin: 1px;
+    padding: 1px;
+}
+
+.keyboardspecial {
+    width: 90px;
+    height: 52px;
+    display: inline-block;
+    margin: 1px;
+    padding: 1px;
+}
+
+.keybutton {
+    background-color: #999;
+    color: white;
+    width: 100%; 
+    height: 100%;
+    font-size: 20px;
+    box-shadow: none;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.correctMessage {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 33px;
+    background-color: #444;
+    margin-left: -55px;
+    top: 133px;
+    left: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px grey;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.incorrectMessage {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 33px;
+    background-color: #444;
+    margin-left: -150px;
+    top: 133px;
+    left: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px grey;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.results {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    background-color: #444;
+    margin-left: -250px;
+    top: 133px;
+    left: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px grey;
+    opacity: 0;
+    visibility: hidden;
+    overflow: auto;
+}
+
+.xbutton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-family: monospace;
+    font-size: 18px;
+    color: white;
+}
+
+.bargraph {
+    width: 50%;
+    color: #538d4e;
+    background-color: #538d4e;
+    text-align: right;
+    box-sizing: border-box;
+    padding-right: 5px;
+}
+
+.copybutton {
+    background-color: #538d4e;
+    width: 250px;
+    height: 50px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+    box-shadow: none;
+}
+
+.copybutton:hover {
+    background-color: #b59f3b;
+}
+
+@keyframes keytype {
+    from {transform: scale(1.25);}
+    to {transform: scale(1.0);}
+}
+
+@keyframes wrong {
+    from {background-color: #111; transform: rotateX(0deg);}
+    49% {background-color: #111; transform: rotateX(90deg);}
+    50% {background-color: #888; transform: rotateX(270deg);}
+    to {background-color: #888; transform: rotateX(360deg);}
+}
+
+@keyframes misplaced {
+    from {background-color: #111; transform: rotateX(0deg);}
+    49% {background-color: #111; transform: rotateX(90deg);}
+    50% {background-color: #b59f3b; transform: rotateX(270deg);}
+    to {background-color: #b59f3b; transform: rotateX(360deg);}
+}
+
+@keyframes correct {
+    from {background-color: #111; transform: rotateX(0deg);}
+    49% {background-color: #111; transform: rotateX(90deg);}
+    50% {background-color: #538d4e; transform: rotateX(270deg);}
+    to {background-color: #538d4e; transform: rotateX(360deg);}
+}
+
+@keyframes flashWhite {
+    from {background-color: #538d4e; }
+    50% {background-color: #ffffff; }
+    to {background-color: #538d4e; }
+}
+
+@keyframes onlyShow {
+    from {opacity: 0;}
+    to {opacity: 1; visibility: visible;}
+}
+
+@keyframes onlyHide {
+    from {opacity: 1;}
+    to {opacity: 0; visibility: hidden;}
+}
+
+@keyframes showAndHide {
+    from {opacity: 0; visibility: visible;}
+    5% {opacity: 1;}
+    95% {opacity: 1;}
+    to {opacity: 0; visibility: hidden;}
+}
