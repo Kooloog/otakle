@@ -165,6 +165,7 @@ function showResults(attempts) {
     box.style.animationDuration = '200ms'
     box.style.animationTimingFunction = 'ease-out'
     box.style.animationFillMode = 'forwards';
+    message += "\nhttps://kooloog.github.io/otakle/"
     copypaste = message;
 }
 
