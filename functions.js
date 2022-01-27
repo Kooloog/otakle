@@ -435,4 +435,6 @@ else {
             setTimeout(function () { checkWord(); }, 100);
         }
     }
+
+    canWrite = false;
 }
