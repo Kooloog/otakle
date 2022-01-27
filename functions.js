@@ -335,7 +335,6 @@ function checkWord() {
                 case 5: message = "Nice!"; break;
             }
 
-            canWrite = false;
             characterInfo();
             setTimeout(function () { showEndingMessage(message); }, 1500);
             setTimeout(function () { flashAnimation(currentAttempt); }, 1555);
