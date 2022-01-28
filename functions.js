@@ -423,6 +423,7 @@ if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
+    
 }
 else {
     for (var i = 1; i <= 6; i++) {
@@ -432,7 +433,7 @@ else {
                 var pressedKey = getCookie("row" + i).charAt(j);
                 inputLetter(cell, pressedKey);
             }
-            setTimeout(function () { checkWord(); }, 100);
+            setTimeout(function () { checkWord(); }, 500);
         }
     }
 }
