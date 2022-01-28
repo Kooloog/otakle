@@ -437,4 +437,4 @@ else {
     }
 }
 
-document.write("Hola");
+document.getElementById("grid").style.backgroundColor = "red";
