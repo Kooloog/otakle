@@ -198,6 +198,12 @@ var currentPosition = 0;
 //Getting current date and storing it in DD/MM/YYYY format
 var firstDay = new Date('2022-01-27');
 var today = new Date();
+
+firstDay.setHours(today.getHours() - 1);
+firstDay.setMinutes(today.getMinutes());
+firstDay.setSeconds(today.getSeconds());
+firstDay.setMilliseconds(today.getMilliseconds());
+
 var diffTime = Math.abs(today - firstDay);
 daysSinceFirst = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1; 
 
