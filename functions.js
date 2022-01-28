@@ -4,7 +4,8 @@
 
 //Sets a new cookie
 function setCookie(name, value) {
-    document.cookie = name + "=" + value;
+    var daysToExpire = new Date(2147483647 * 1000).toUTCString();
+    document.cookie = name + "=" + value  + '; expires=' + daysToExpire;
 }
 
 //Gets a cookie by name
@@ -21,7 +22,7 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     if (getCookie(name)) {
-        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = name +'=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 }
 
