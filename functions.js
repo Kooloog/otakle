@@ -419,7 +419,7 @@ function keyboardKey(key) {
 //INITIAL COOKIE CHECKS//
 //*********************//
 
-if (today == getCookie("lastDate")) {
+if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
