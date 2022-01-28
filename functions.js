@@ -236,7 +236,7 @@ fetch('characterList.txt').then(response => response.text()).then(text => {
 function characterInfo() {
     document.getElementById('picture').src = answerData[6];
     document.getElementById('answerinfo').innerHTML =
-        "<div style=\"font-size:24px\">" + answerData[4] + "</div><div>" + answerData[5] + "</div>";
+        "<div style=\"font-size:21px\">" + answerData[4] + "</div><div>" + answerData[5] + "</div>";
 }
 
 //Inputs a letter in the current row
