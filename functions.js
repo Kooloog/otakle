@@ -21,7 +21,7 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     if (getCookie(name)) {
-        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = name +'=; Path=/otakle; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 }
 
@@ -419,7 +419,7 @@ function keyboardKey(key) {
 //INITIAL COOKIE CHECKS//
 //*********************//
 
-if (today != getCookie("lastDate")) {
+if (today == getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
