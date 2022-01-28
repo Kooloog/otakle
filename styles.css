@@ -25,16 +25,16 @@ body, html {
 }
 
 .keyboard {
-    width: 26px;
-    height: 35px;
+    width: 36px;
+    height: 40px;
     display: inline-block;
     margin: 1px;
     padding: 1px;
 }
 
 .keyboardspecial {
-    width: 60px;
-    height: 35px;
+    width: 65px;
+    height: 40px;
     display: inline-block;
     margin: 1px;
     padding: 1px;
@@ -97,10 +97,10 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 340px;
-    height: 470px;
+    width: 500px;
+    height: 500px;
     background-color: #444;
-    margin-left: -171px;
+    margin-left: -250px;
     top: 133px;
     left: 50%;
     border: 1px solid gray;
