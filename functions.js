@@ -4,7 +4,8 @@
 
 //Sets a new cookie
 function setCookie(name, value) {
-    document.cookie = name + "=" + value;
+    var daysToExpire = new Date(2147483647 * 1000).toUTCString();
+    document.cookie = name + "=" + value  + '; expires=' + daysToExpire;
 }
 
 //Gets a cookie by name
@@ -419,7 +420,7 @@ function keyboardKey(key) {
 //INITIAL COOKIE CHECKS//
 //*********************//
 
-if (today == getCookie("lastDate")) {
+if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
