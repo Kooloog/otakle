@@ -199,18 +199,14 @@ var currentPosition = 0;
 var firstDay = new Date('2022-01-27');
 var today = new Date();
 
-firstDay.setHours(today.getHours() - 1);
-firstDay.setMinutes(today.getMinutes());
-firstDay.setSeconds(today.getSeconds());
-firstDay.setMilliseconds(today.getMilliseconds());
-
-var diffTime = Math.abs(today - firstDay);
-daysSinceFirst = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1; 
-
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
+
+var todayCorrect = new Date(yyyy + '-' + mm + '-' + dd);
+var diffTime = Math.abs(todayCorrect - firstDay);
+daysSinceFirst = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
 if (getCookie("attemptsTotal") == null) firstTimeCookies(today);
 
