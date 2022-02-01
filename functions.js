@@ -4,7 +4,8 @@
 
 //Sets a new cookie
 function setCookie(name, value) {
-    document.cookie = name + "=" + value;
+    var daysToExpire = new Date(2147483647 * 1000).toUTCString();
+    document.cookie = name + "=" + value  + '; expires=' + daysToExpire;
 }
 
 //Gets a cookie by name
@@ -21,7 +22,7 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     if (getCookie(name)) {
-        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = name +'=; Path=/otakle; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 }
 
@@ -197,13 +198,15 @@ var currentPosition = 0;
 //Getting current date and storing it in DD/MM/YYYY format
 var firstDay = new Date('2022-01-27');
 var today = new Date();
-var diffTime = Math.abs(today - firstDay);
-daysSinceFirst = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1; 
 
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
+
+var todayCorrect = new Date(yyyy + '-' + mm + '-' + dd);
+var diffTime = Math.abs(todayCorrect - firstDay);
+daysSinceFirst = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
 if (getCookie("attemptsTotal") == null) firstTimeCookies(today);
 
@@ -235,7 +238,7 @@ fetch('characterList.txt').then(response => response.text()).then(text => {
 function characterInfo() {
     document.getElementById('picture').src = answerData[6];
     document.getElementById('answerinfo').innerHTML =
-        "<div style=\"font-size:24px\">" + answerData[4] + "</div><div>" + answerData[5] + "</div>";
+        "<div style=\"font-size:21px\">" + answerData[4] + "</div><div>" + answerData[5] + "</div>";
 }
 
 //Inputs a letter in the current row
@@ -257,10 +260,17 @@ function changeKeyColor(letter, type) {
         var row = document.getElementById("keys").rows[i];
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j].getElementsByTagName('input')[0];
+            var color = getComputedStyle(cell).backgroundColor;
             if (cell.value == letter) {
-                if (type == "0") { cell.style.backgroundColor = '#538d4e'; }
-                if (type == "1") { cell.style.backgroundColor = '#b59f3b'; }
-                if (type == "2") { cell.style.backgroundColor = '#333333'; }
+                if (type == "1") { 
+                    cell.style.backgroundColor = '#b59f3b'; 
+                }
+                if (type == "0") { 
+                    if(!color.includes('181, 159, 59')) cell.style.backgroundColor = '#538d4e'; 
+                }
+                if (type == "2") { 
+                    if(!color.includes('181, 159, 59') && !color.includes('83, 141, 78')) cell.style.backgroundColor = '#333333'; 
+                }
             }
         }
     }
@@ -423,6 +433,7 @@ if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
+    
 }
 else {
     for (var i = 1; i <= 6; i++) {
@@ -432,7 +443,7 @@ else {
                 var pressedKey = getCookie("row" + i).charAt(j);
                 inputLetter(cell, pressedKey);
             }
-            setTimeout(function () { checkWord(); }, 100);
+            setTimeout(function () { checkWord(); }, 500);
         }
     }
 }
