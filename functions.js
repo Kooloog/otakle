@@ -260,10 +260,17 @@ function changeKeyColor(letter, type) {
         var row = document.getElementById("keys").rows[i];
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j].getElementsByTagName('input')[0];
+            var color = getComputedStyle(cell).backgroundColor;
             if (cell.value == letter) {
-                if (type == "0") { cell.style.backgroundColor = '#538d4e'; }
-                if (type == "1") { cell.style.backgroundColor = '#b59f3b'; }
-                if (type == "2") { cell.style.backgroundColor = '#333333'; }
+                if (type == "1") { 
+                    cell.style.backgroundColor = '#b59f3b'; 
+                }
+                if (type == "0") { 
+                    if(!color.includes('181, 159, 59')) cell.style.backgroundColor = '#538d4e'; 
+                }
+                if (type == "2") { 
+                    if(!color.includes('181, 159, 59') && !color.includes('83, 141, 78')) cell.style.backgroundColor = '#333333'; 
+                }
             }
         }
     }
