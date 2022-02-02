@@ -258,6 +258,15 @@ function eraseLetter(cell) {
 function changeKeyColor(letter, type) {
     for (var i = 0; i < 3; i++) {
         var row = document.getElementById("keys").rows[i];
+
+        for (var j = 0; j < row.cells.length; j++) {
+            var cell = row.cells[j].getElementsByTagName('input')[0];
+            var color = getComputedStyle(cell).backgroundColor;
+            if (cell.value == letter) {
+                cell.style.background = '#888888';
+            }
+        }
+
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j].getElementsByTagName('input')[0];
             var color = getComputedStyle(cell).backgroundColor;
