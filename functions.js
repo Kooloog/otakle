@@ -444,7 +444,7 @@ if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
-    
+    //setCookie("urgencyfix", "done");
 }
 else {
     for (var i = 1; i <= 6; i++) {
