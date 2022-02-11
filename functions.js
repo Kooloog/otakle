@@ -258,9 +258,20 @@ function eraseLetter(cell) {
 function changeKeyColor(letter, type) {
     for (var i = 0; i < 3; i++) {
         var row = document.getElementById("keys").rows[i];
+
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j].getElementsByTagName('input')[0];
             var color = getComputedStyle(cell).backgroundColor;
+
+            if (cell.value == letter) {
+                cell.style.background = '#888888';
+            }
+        }
+
+        for (var j = 0; j < row.cells.length; j++) {
+            var cell = row.cells[j].getElementsByTagName('input')[0];
+            var color = cell.style.backgroundColor;
+
             if (cell.value == letter) {
                 if (type == "1") { 
                     cell.style.backgroundColor = '#b59f3b'; 
@@ -433,7 +444,7 @@ if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
-    
+    //setCookie("urgencyfix", "done");
 }
 else {
     for (var i = 1; i <= 6; i++) {
