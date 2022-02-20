@@ -150,7 +150,7 @@ body, html {
 .xbuttonsidemenu {
     position: absolute;
     top: 20px;
-    right: calc(50% - 200px);
+    right: calc(50% - 180px);
     cursor: pointer;
     background-color: transparent;
     border: none;

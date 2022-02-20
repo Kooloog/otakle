@@ -578,6 +578,7 @@ function changeFont() {
 //*********************//
 
 if(getCookie("colorblind")) {
+    var variables = document.querySelector(':root');
     variables.style.setProperty('--correct', '#f5793a');
     variables.style.setProperty('--misplaced', '#85c0f9');
     document.getElementById("colorblind").checked = true;
@@ -587,7 +588,6 @@ if(getCookie("fonts")) {
     changeToArial();
     document.getElementById("basicFont").checked = true;
 }
-
 
 if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
