@@ -11,9 +11,22 @@
 <!-- Main content -->
 
 <body>
-    <h1>Otakle</h1>
-    <p style="margin-top:-20px; font-size:14px;">A Wordle version for anime and gaming characters</p>
 
+    <!-- HEADER -->
+    <div class="mainheader">
+        <div style="float: left;">
+            <input type="image" class="icon" src="resources/help.png" onclick="showHelp()"/>    
+        </div>
+        <div style="margin: auto;">
+            <h1 id="maintitle" style="font-family:anime;">Otakle</h1>
+        </div>
+        <div style="float: right;"><h1 style="font-family:anime;">
+            <input type="image" class="icon" src="resources/settings.png" onclick="showSettings()"/>  
+        </div>
+    </div>
+    <p id="subtitle" style="margin-top:-20px; font-size:14px; font-family:anime;">An anime/gaming character Wordle!</p>
+
+    <!-- GRID -->
     <table class='center', id='grid'>
         <tr>
             <td class="cell"></td>
@@ -59,7 +72,8 @@
         </tr>
     </table></br></br>
 
-    <table class='center' , id='keys'>
+    <!-- KEYBOARD -->
+    <table class='center', id='keys'>
         <tr>
             <td class='keyboard'><input class='keybutton' type='button' value='Q' onclick='keyboardKey(this);' /></td>
             <td class='keyboard'><input class='keybutton' type='button' value='W' onclick='keyboardKey(this);' /></td>
@@ -102,13 +116,91 @@
     <div id="copied" class="correctMessage" disabled></div>
     <div id="invalid" class="incorrectMessage" disabled>Not in character list</div>
 
+    <!-- HELP -->
+    <div id="help" class="sidemenu">
+        <div class="menucontents">
+            <input type="button" class="xbuttonsidemenu" value="X" onClick="hideHelp();"></input>
+            <H3>HOW TO PLAY</H3>
+            <div style="border-bottom: 1px solid gray">
+                <br>Guess the <b>OTAKLE</b> in 6 tries.<br><br>       
+                Each guess must be a valid five-letter character from any anime or video game. Hit the enter button to submit. <br><br>
+                After each guess, the color of the tiles will change to show how close your guess was to the answer. <br><br>
+            </div>
+
+            <H4>EXAMPLES</H4>
+            <div style="border-bottom: 1px solid gray">
+                <table id="example1">
+                    <tr>
+                        <td class="exampleCell" style="background-color: var(--correct);;">A</td>
+                        <td class="exampleCell">R</td>
+                        <td class="exampleCell">M</td>
+                        <td class="exampleCell">I</td>
+                        <td class="exampleCell">N</td>
+                    </tr>
+                </table>
+                The letter <b>A</b> is in the word and in the correct spot.<br><br>
+
+                <table id="example2">
+                    <tr>
+                        <td class="exampleCell">M</td>
+                        <td class="exampleCell">I</td>
+                        <td class="exampleCell" style="background-color: var(--misplaced);;">S</td>
+                        <td class="exampleCell">T</td>
+                        <td class="exampleCell">Y</td>
+                    </tr>
+                </table>
+                The letter <b>S</b> is in the word, but in the wrong spot.<br><br>
+
+                <table id="example3">
+                    <tr>
+                        <td class="exampleCell">Z</td>
+                        <td class="exampleCell">E</td>
+                        <td class="exampleCell">L</td>
+                        <td class="exampleCell" style="background-color: var(--incorrect);;">D</td>
+                        <td class="exampleCell">A</td>
+                    </tr>
+                </table>
+                The letter <b>D</b> is not in the word in any spot.<br><br>
+            </div>
+            <br><b>A new OTAKLE will be available each day!</b>
+        </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="settings" class="sidemenu">
+        <div class="menucontents">
+            <input type="button" class="xbuttonsidemenu" value="X" onClick="hideSettings();"></input>
+            <div style="height:100px"></div>
+
+            <div class="option">
+                <div style="float:left; font-size:18px;">Color Blind Colors</div>
+                <div class="checkerMenu">
+                    <input type="checkbox" id="colorblind" class="checker" onchange="changeColors()">
+                </div>
+            </div>
+
+            <div class="option">
+                <div style="float:left; font-size:18px;">Basic Font</div>
+                <div class="checkerMenu">
+                    <input type="checkbox" id="basicFont" class="checker" onchange="changeFont()">
+                </div>
+            </div>
+
+            <div class="option">
+                <div style="float:left; font-size:16px;">Developed by <a href="https://twitter.com/Kooloog_">@Kooloog_</a></div>
+            </div>
+            More options coming soon, feel free to request any!
+        </div>
+    </div>
+
+    <!-- RESULTS -->
     <div id="results" class="results">
         <input type="button" class="xbutton" value="X" onClick="hideResults();"></input>
         <table>
             <tr>
                 <td style="width:30%; padding-left:15px;"><img id="picture" style="width:100%"></img></td>
                 <td style="padding-right:15px">
-                    <p id="answerinfo"></p>
+                    <p style="font-family: anime;" id="answerinfo"></p>
                     <p style="font-size:9px;">New puzzle tomorrow!</p>
                 </td>
             </tr>
@@ -162,6 +254,7 @@
         </table>
     </div>
 
+    <p style="font-size:10px;">Otakle is currently undergoing some changes, sorry if some stuff looks off-place!</p>
     <script async src="//static.getclicky.com/101352789.js"></script>
 
 </body>
