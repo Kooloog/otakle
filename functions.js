@@ -116,6 +116,38 @@ function copyToClipboard() {
     setTimeout(function () { hideMessage(); }, 1000);
 }
 
+function showHelp() {
+    var box = document.getElementById("help");
+    box.style.animationName = 'onlyShow'
+    box.style.animationDuration = '200ms'
+    box.style.animationTimingFunction = 'ease-out'
+    box.style.animationFillMode = 'forwards';
+}
+
+function hideHelp() {
+    var box = document.getElementById("help");
+    box.style.animationName = 'onlyHide'
+    box.style.animationDuration = '200ms'
+    box.style.animationTimingFunction = 'ease-out'
+    box.style.animationFillMode = 'forwards';
+}
+
+function showSettings() {
+    var box = document.getElementById("settings");
+    box.style.animationName = 'onlyShow'
+    box.style.animationDuration = '200ms'
+    box.style.animationTimingFunction = 'ease-out'
+    box.style.animationFillMode = 'forwards';
+}
+
+function hideSettings() {
+    var box = document.getElementById("settings");
+    box.style.animationName = 'onlyHide'
+    box.style.animationDuration = '200ms'
+    box.style.animationTimingFunction = 'ease-out'
+    box.style.animationFillMode = 'forwards';
+}
+
 //Shows the results screen (reads grid to generate emoji content)
 function showResults(attempts) {
     var box = document.getElementById("results");
@@ -129,9 +161,11 @@ function showResults(attempts) {
             for (var j = 0; j < 5; j++) {
                 var cell = grid.rows[i].cells[j];
                 var color = getComputedStyle(cell).backgroundColor;
-                if (color.includes('136, 136, 136')) message += "⬛";
+                if (color.includes('102, 102, 102')) message += "⬛";
                 if (color.includes('181, 159, 59')) message += "🟨";
                 if (color.includes('83, 141, 78')) message += "🟩";
+                if (color.includes('133, 192, 249')) message += "🟦";
+                if (color.includes('245, 121, 58')) message += "🟧";
             }
             message += '<br>'
         }
@@ -142,11 +176,16 @@ function showResults(attempts) {
 
     //Updating the bar graph on the results screen
     if (parseInt(getCookie("attemptsTotal")) != 0) {
+        var maxValue = 0;
+        for (var i = 1; i <= 6; i++) {
+            var checking = (parseFloat(getCookie("attempts" + i)) / parseFloat(getCookie("attemptsTotal")))
+            if(checking > maxValue) maxValue = checking;
+        }
         for (var i = 1; i <= 6; i++) {
             if (parseInt(getCookie("attempts" + i)) < 1) document.getElementById("attempts" + i).style.width = "1%";
             else {
                 document.getElementById("attempts" + i).style.width =
-                    ((parseFloat(getCookie("attempts" + i)) / parseFloat(getCookie("attemptsTotal"))) * 100.0) + "%";
+                    (((parseFloat(getCookie("attempts" + i)) / parseFloat(getCookie("attemptsTotal"))) / maxValue) * 100.0) + "%";
 
                 if (parseInt(getCookie("attempts" + i)) > 0) {
                     document.getElementById("attempts" + i).textContent = getCookie("attempts" + i);
@@ -238,7 +277,7 @@ fetch('characterList.txt').then(response => response.text()).then(text => {
 function characterInfo() {
     document.getElementById('picture').src = answerData[6];
     document.getElementById('answerinfo').innerHTML =
-        "<div style=\"font-size:21px\">" + answerData[4] + "</div><div>" + answerData[5] + "</div>";
+        "<div style=\"font-size:21px\">" + answerData[4] + "</div><div style=\"font-size:12px\">" + answerData[5] + "</div>";
 }
 
 //Inputs a letter in the current row
@@ -256,12 +295,14 @@ function eraseLetter(cell) {
 
 //Changes the color of a key in the keyboard
 function changeKeyColor(letter, type) {
+    var r = document.querySelector(':root');
+    var rs = getComputedStyle(r);
+
     for (var i = 0; i < 3; i++) {
         var row = document.getElementById("keys").rows[i];
 
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j].getElementsByTagName('input')[0];
-            var color = getComputedStyle(cell).backgroundColor;
 
             if (cell.value == letter) {
                 cell.style.background = '#888888';
@@ -274,13 +315,18 @@ function changeKeyColor(letter, type) {
 
             if (cell.value == letter) {
                 if (type == "1") { 
-                    cell.style.backgroundColor = '#b59f3b'; 
+                    cell.style.backgroundColor = rs.getPropertyValue('--misplaced'); 
                 }
                 if (type == "0") { 
-                    if(!color.includes('181, 159, 59')) cell.style.backgroundColor = '#538d4e'; 
+                    if(!color.includes('181, 159, 59') || !color.includes('133, 192, 249')) {
+                        cell.style.backgroundColor = rs.getPropertyValue('--correct'); 
+                    }
                 }
                 if (type == "2") { 
-                    if(!color.includes('181, 159, 59') && !color.includes('83, 141, 78')) cell.style.backgroundColor = '#333333'; 
+                    if((!color.includes('181, 159, 59') || !color.includes('133, 192, 249') ) && 
+                        !color.includes('83, 141, 78') || !color.includes('245, 121, 58')) {
+                        cell.style.backgroundColor = '#333333'; 
+                    }
                 }
             }
         }
@@ -436,15 +482,117 @@ function keyboardKey(key) {
     }
 }
 
+//*****************//
+//SETTING FUNCTIONS//
+//*****************//
+
+function changeColors() {
+    var variables = document.querySelector(':root');
+    var colorblindEnable = document.getElementById("colorblind");
+
+    if(colorblindEnable.checked) {
+        variables.style.setProperty('--correct', '#f5793a');
+        variables.style.setProperty('--misplaced', '#85c0f9');
+        setCookie("colorblind", "1");
+
+        for (var i = 0; i < 3; i++) {
+            var row = document.getElementById("keys").rows[i];
+            for (var j = 0; j < row.cells.length; j++) {
+                var cell = row.cells[j].getElementsByTagName('input')[0];
+                var color = getComputedStyle(cell).backgroundColor;
+    
+                if (color.includes('181, 159, 59')) cell.style.background = '#85c0f9';          
+                if (color.includes('83, 141, 78')) cell.style.background = '#f5793a';            
+            }
+        }
+    }
+    else {
+        variables.style.setProperty('--misplaced', '#b59f3b');
+        variables.style.setProperty('--correct', '#538d4e');
+
+        for (var i = 0; i < 3; i++) {
+            var row = document.getElementById("keys").rows[i];
+            for (var j = 0; j < row.cells.length; j++) {
+                var cell = row.cells[j].getElementsByTagName('input')[0];
+                var color = getComputedStyle(cell).backgroundColor;
+    
+                if (color.includes('133, 192, 249')) cell.style.background = '#b59f3b';          
+                if (color.includes('245, 121, 58')) cell.style.background = '#538d4e';            
+            }
+        }
+
+        deleteCookie("colorblind");
+    }
+}
+
+function changeToArial() {
+    document.getElementById("maintitle").style.fontFamily = "arial";
+    document.getElementById("subtitle").style.fontFamily = "arial";
+    document.getElementById("answerinfo").style.fontFamily = "arial";
+
+    for (var i = 0; i < 6; i++) {
+        for (var j = 0; j < 5; j++) {
+            var cell = document.getElementById("grid").rows[i].cells[j];
+            cell.style.fontFamily = "Arial";
+        }
+    }
+
+    for(var i = 0; i < 5; i++) {
+        document.getElementById("example1").rows[0].cells[i].style.fontFamily = "arial";
+        document.getElementById("example2").rows[0].cells[i].style.fontFamily = "arial";
+        document.getElementById("example3").rows[0].cells[i].style.fontFamily = "arial";
+    }
+}
+
+function changeFont() {
+    var fontEnable = document.getElementById("basicFont");
+
+    if(fontEnable.checked) {
+        changeToArial();
+        setCookie("fonts", "1");
+    }
+    else {
+        document.getElementById("maintitle").style.fontFamily = "anime";
+        document.getElementById("subtitle").style.fontFamily = "anime";
+        document.getElementById("answerinfo").style.fontFamily = "anime";
+
+        for (var i = 0; i < 6; i++) {
+            for (var j = 0; j < 5; j++) {
+                var cell = document.getElementById("grid").rows[i].cells[j];
+                cell.style.fontFamily = "anime";
+            }
+        }
+
+        for(var i = 0; i < 5; i++) {
+            document.getElementById("example1").rows[0].cells[i].style.fontFamily = "anime";
+            document.getElementById("example2").rows[0].cells[i].style.fontFamily = "anime";
+            document.getElementById("example3").rows[0].cells[i].style.fontFamily = "anime";
+        }
+
+        deleteCookie("fonts");
+    }
+}
+
 //*********************//
 //INITIAL COOKIE CHECKS//
 //*********************//
+
+if(getCookie("colorblind")) {
+    var variables = document.querySelector(':root');
+    variables.style.setProperty('--correct', '#f5793a');
+    variables.style.setProperty('--misplaced', '#85c0f9');
+    document.getElementById("colorblind").checked = true;
+}
+
+if(getCookie("fonts")) {
+    changeToArial();
+    document.getElementById("basicFont").checked = true;
+}
 
 if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
-    //setCookie("urgencyfix", "done");
 }
 else {
     for (var i = 1; i <= 6; i++) {
