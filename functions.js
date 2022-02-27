@@ -191,6 +191,9 @@ function showResults(attempts) {
                     document.getElementById("attempts" + i).textContent = getCookie("attempts" + i);
                     document.getElementById("attempts" + i).style.color = "white";
                 }
+                else {
+                    document.getElementById("attempts" + i).style.width = "1%";
+                }
             }
         }
     }
