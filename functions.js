@@ -191,6 +191,9 @@ function showResults(attempts) {
                     document.getElementById("attempts" + i).textContent = getCookie("attempts" + i);
                     document.getElementById("attempts" + i).style.color = "white";
                 }
+                else {
+                    document.getElementById("attempts" + i).style.width = "1%";
+                }
             }
         }
     }
@@ -265,12 +268,21 @@ fetch('answers.txt').then(response => response.text()).then(text => {
 
 //Preparing the character list (valid terms user can input)
 let validCharacters = [];
+let englishWords = [];
 
 fetch('characterList.txt').then(response => response.text()).then(text => {
     var lines = text.split('\n');
     for (var line = 0; line < lines.length; line++) {
         var character = lines[line].substring(0, 5);
         validCharacters.push(character);
+    }
+});
+
+fetch('englishList.txt').then(response => response.text()).then(text => {
+    var lines = text.split('\n');
+    for (var line = 0; line < lines.length; line++) {
+        var varword = lines[line].substring(0, 5);
+        englishWords.push(varword);
     }
 });
 
@@ -341,14 +353,23 @@ function countGreens(array) {
     return hits;
 }
 
-function checkWord() {
+function checkInList(wordToCheck) {
+    if(getCookie("dictionary")) {
+        if (validCharacters.includes(wordToCheck) || englishWords.includes(wordToCheck)) return true;
+    }
+    else {
+        if (validCharacters.includes(wordToCheck)) return true;
+    }
+    return false;
+}
 
+function checkWord() {
     var wordToCheck = '';
     for (let i = 0; i < 5; i++) {
         wordToCheck = wordToCheck + document.getElementById("grid").rows[currentAttempt].cells[i].innerHTML;
     }
 
-    if (validCharacters.includes(wordToCheck)) {
+    if (checkInList(wordToCheck)) {
         var positionScore = new Array(5).fill(2);
         canWrite = false;
 
@@ -573,6 +594,17 @@ function changeFont() {
     }
 }
 
+function changeDictionary() {
+    var dictionaryEnable = document.getElementById("dictionary");
+
+    if(dictionaryEnable.checked) {
+        setCookie("dictionary", "1");
+    }
+    else {
+        deleteCookie("dictionary");
+    }
+}
+
 //*********************//
 //INITIAL COOKIE CHECKS//
 //*********************//
@@ -589,12 +621,18 @@ if(getCookie("fonts")) {
     document.getElementById("basicFont").checked = true;
 }
 
+if(getCookie("dictionary")) {
+    document.getElementById("dictionary").checked = true;
+}
+
 if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
 }
 else {
+    setCookie("dictionary", "1");
+
     for (var i = 1; i <= 6; i++) {
         if (getCookie("row" + i)) {
             for (var j = 0; j < 5; j++) {
@@ -605,4 +643,6 @@ else {
             setTimeout(function () { checkWord(); }, 500);
         }
     }
+
+    setTimeout(function () { deleteCookie("dictionary"); }, 3000);
 }

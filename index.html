@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="wordle, anime, gaming, game, manga, animation">
+    <meta name="description" content="A Wordle version for anime and gaming characters!">
+    <meta name="author" content="Roberto Moreno, @Kooloog_">
+    <meta name="designer" content="Roberto Moreno, @Kooloog_">
     <link rel="stylesheet" href="styles.css">
     <title>Otakle - Anime and Gaming Wordle</title>
 </head>
@@ -183,6 +187,15 @@
                 <div style="float:left; font-size:18px;">Basic Font</div>
                 <div class="checkerMenu">
                     <input type="checkbox" id="basicFont" class="checker" onchange="changeFont()">
+                </div>
+            </div>
+
+            <div class="option">
+                <div style="float:left; font-size:18px;">Dictionary Mode
+                    <div style="font-size:10px;">Allows any English word as a guess</div>
+                </div>
+                <div class="checkerMenu">
+                    <input type="checkbox" id="dictionary" class="checker" onchange="changeDictionary()">
                 </div>
             </div>
 
