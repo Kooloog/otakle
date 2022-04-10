@@ -295,6 +295,7 @@ function changePuzzle(instruction) {
         }
 
         hideResults();
+        document.activeElement.blur();
         canWrite = true;
 
         for (var i = 0; i < 6; i++) {
