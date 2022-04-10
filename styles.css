@@ -235,6 +235,24 @@ body, html {
     background-color: var(--misplaced);
 }
 
+.redirectbutton {
+    background-color: gray;
+    width: 300px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+    box-shadow: none;
+    margin-top: 10px;
+}
+
+.redirectbutton:hover {
+    background-color: lightgray;
+    color: black;
+}
+
 @keyframes keytype {
     from {transform: scale(1.25);}
     to {transform: scale(1.0);}
@@ -259,6 +277,11 @@ body, html {
     49% {background-color: var(--background); transform: rotateX(90deg);}
     50% {background-color: var(--correct); transform: rotateX(270deg);}
     to {background-color: var(--correct); transform: rotateX(360deg);}
+}
+
+@keyframes defaultColors {
+    from {background-color: var(--correct);}
+    to {background-color: var(--background);}
 }
 
 @keyframes flashWhite {
