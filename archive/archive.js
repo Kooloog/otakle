@@ -222,6 +222,7 @@ fetch('answers.txt').then(response => response.text()).then(text => {
     answerData = String(allCharacters[currentPuzzle - 1]).split("|");
     answerWord = String(answerData[3]);
     inputBox.value = currentPuzzle;
+    document.getElementById("subtitle").innerHTML = "Currently playing Otakle #" + currentPuzzle;
 });
 
 document.getElementById("mainotakle").onclick = function () {
