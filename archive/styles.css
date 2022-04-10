@@ -1,0 +1,313 @@
+:root {
+    --background: #111;
+    --incorrect: #666;
+    --misplaced: #b59f3b;
+    --correct: #538d4e;
+}
+
+body, html {
+    background: var(--background);
+    color: white;
+    font-family: 'Arial';
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.mainheader {
+    display: flex;
+    width: 350px;
+    margin: auto;
+    align-items: center;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    margin: 2px;
+    padding: 2px;
+    font-size: 30px;
+    font-family: anime;
+    font-weight: bold;
+    border: 1px solid gray;
+}
+
+.exampleCell {
+    background-color: var(--background);
+    width: 33px;
+    height: 33px;
+    line-height:33px;
+    display: inline-block;
+    margin: 1px;
+    padding: 1px;
+    font-size: 25px;
+    font-family: anime;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid gray;
+}
+
+.keyboard {
+    width: 27px;
+    height: 35px;
+    display: inline-block;
+    margin: 1px;
+    padding: 1px;
+}
+
+.keyboardspecial {
+    width: 56px;
+    height: 35px;
+    display: inline-block;
+    margin: 1px;
+    padding: 1px;
+}
+
+.keybutton {
+    background-color: #999;
+    color: white;
+    width: 100%; 
+    height: 100%;
+    font-size: 13px;
+    box-shadow: none;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.correctMessage {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 33px;
+    background-color: #444;
+    margin-left: -55px;
+    top: 133px;
+    left: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px grey;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.incorrectMessage {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 33px;
+    background-color: #444;
+    margin-left: -150px;
+    top: 133px;
+    left: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px grey;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.sidemenu {
+    position: absolute;
+    top: 0px;
+    width: 99%;
+    height: 99%;
+    background-color: var(--background);
+    text-align: left;
+    text-transform: none;
+    font-size: 13px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.menucontents {
+    margin: auto;
+    min-width: 350px;
+    max-width: 350px;
+}
+
+.xbuttonsidemenu {
+    position: absolute;
+    top: 20px;
+    right: calc(50% - 180px);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-family: monospace;
+    font-size: 18px;
+    color: white;
+}
+
+.option {
+    height: 50px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    align-items: center;
+}
+
+.checkerMenu {
+    vertical-align: middle;
+    margin-left: auto;
+}
+
+.checker {
+    background: var(--background);
+    border: 2px solid white;
+    width: 30px;
+    height: 30px;
+}
+
+.results {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 340px;
+    height: 470px;
+    background-color: #444;
+    margin-left: -171px;
+    top: 133px;
+    left: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px grey;
+    opacity: 0;
+    visibility: hidden;
+    overflow: auto;
+}
+
+.xbutton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-family: monospace;
+    font-size: 18px;
+    color: white;
+}
+
+.bargraph {
+    width: 50%;
+    color: var(--correct);
+    background-color: var(--correct);
+    text-align: right;
+    box-sizing: border-box;
+    padding-right: 5px;
+}
+
+.copybutton {
+    background-color: var(--correct);
+    width: 250px;
+    height: 50px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+    box-shadow: none;
+}
+
+.copybutton:hover {
+    background-color: var(--misplaced);
+}
+
+.redirectbutton {
+    background-color: gray;
+    width: 300px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+    box-shadow: none;
+    margin-top: 10px;
+}
+
+.redirectbutton:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+@keyframes keytype {
+    from {transform: scale(1.25);}
+    to {transform: scale(1.0);}
+}
+
+@keyframes wrong {
+    from {background-color: var(--background); transform: rotateX(0deg);}
+    49% {background-color: var(--background);  transform: rotateX(90deg);}
+    50% {background-color: var(--incorrect);  transform: rotateX(270deg);}
+    to {background-color: var(--incorrect); transform: rotateX(360deg);}
+}
+
+@keyframes misplaced {
+    from {background-color: var(--background); transform: rotateX(0deg);}
+    49% {background-color: var(--background); transform: rotateX(90deg);}
+    50% {background-color: var(--misplaced); transform: rotateX(270deg);}
+    to {background-color: var(--misplaced); transform: rotateX(360deg);}
+}
+
+@keyframes correct {
+    from {background-color: var(--background); transform: rotateX(0deg);}
+    49% {background-color: var(--background); transform: rotateX(90deg);}
+    50% {background-color: var(--correct); transform: rotateX(270deg);}
+    to {background-color: var(--correct); transform: rotateX(360deg);}
+}
+
+@keyframes defaultColors {
+    from {background-color: var(--correct);}
+    to {background-color: var(--background);}
+}
+
+@keyframes flashWhite {
+    from {background-color: var(--correct); }
+    50% {background-color: #ffffff; }
+    to {background-color: var(--correct); }
+}
+
+@keyframes onlyShow {
+    from {opacity: 0;}
+    to {opacity: 1; visibility: visible;}
+}
+
+@keyframes onlyHide {
+    from {opacity: 1;}
+    to {opacity: 0; visibility: hidden;}
+}
+
+@keyframes showAndHide {
+    from {opacity: 0; visibility: visible;}
+    5% {opacity: 1;}
+    95% {opacity: 1;}
+    to {opacity: 0; visibility: hidden;}
+}
+
+@font-face {
+    font-family: anime;
+    src: url(resources/customFont.otf);
+}
