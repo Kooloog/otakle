@@ -22,26 +22,8 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     if (getCookie(name)) {
-        document.cookie = name +'=; Path=/otakle; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = name +'=; Path=/otakle/archive; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
-}
-
-function firstTimeCookies(today) {
-    for (var i = 1; i <= 6; i++) setCookie("attempts" + i, 0);
-    setCookie("attemptsTotal", 0);
-    setCookie("lastDate", today);
-}
-
-function updateAttemptCookie(attempts) {
-    switch (parseInt(attempts)) {
-        case 1: setCookie("attempts1", parseInt(getCookie("attempts1")) + 1); break;
-        case 2: setCookie("attempts2", parseInt(getCookie("attempts2")) + 1); break;
-        case 3: setCookie("attempts3", parseInt(getCookie("attempts3")) + 1); break;
-        case 4: setCookie("attempts4", parseInt(getCookie("attempts4")) + 1); break;
-        case 5: setCookie("attempts5", parseInt(getCookie("attempts5")) + 1); break;
-        case 6: setCookie("attempts6", parseInt(getCookie("attempts6")) + 1); break;
-    }
-    setCookie("attemptsTotal", parseInt(getCookie("attemptsTotal")) + 1);
 }
 
 //*****************//
@@ -64,6 +46,14 @@ function colorAnimation(cell, type, number) {
     cell.style.animationDuration = '500ms'
     cell.style.animationTimingFunction = 'ease-out'
     cell.style.animationFillMode = 'forwards';
+}
+
+function defaultColor(cell) {
+    cell.style.animationName = 'defaultColors';
+    cell.style.animationDuration = '0ms';
+    cell.style.animationDelay = '0ms';
+    cell.style.animationFillMode = 'forwards';
+    cell.style.backgroundColor = "";
 }
 
 //Animation when the word is guessed correctly
@@ -148,13 +138,20 @@ function hideSettings() {
     box.style.animationFillMode = 'forwards';
 }
 
+//Clears current animation value from any cell
+function clearAnimation(cell) {
+    cell.style.animationName = ''
+    cell.style.animationDuration = ''
+    cell.style.animationTimingFunction = ''
+}
+
 //Shows the results screen (reads grid to generate emoji content)
 function showResults(attempts) {
     var box = document.getElementById("results");
     var grid = document.getElementById("grid");
     var todayAttempts = (attempts + 1);
     if (todayAttempts >= 7) todayAttempts = 'X';
-    var message = 'Otakle ' + daysSinceFirst + ' - ' + (todayAttempts) + "/6<br><br>";
+    var message = 'Otakle (Archive) ' + currentPuzzle + ' - ' + (todayAttempts) + "/6<br><br>";
 
     for (var i = 0; i <= attempts; i++) {
         if (i < 6) {
@@ -168,38 +165,6 @@ function showResults(attempts) {
                 if (color.includes('245, 121, 58')) message += "🟧";
             }
             message += '<br>'
-        }
-    }
-
-    if (!getCookie("guessed")) updateAttemptCookie(attempts + 1);
-    setCookie("guessed", "yes");
-
-    //Updating the bar graph on the results screen
-    if (parseInt(getCookie("attemptsTotal")) != 0) {
-        var maxValue = 0;
-        for (var i = 1; i <= 6; i++) {
-            var checking = (parseFloat(getCookie("attempts" + i)) / parseFloat(getCookie("attemptsTotal")))
-            if(checking > maxValue) maxValue = checking;
-        }
-        for (var i = 1; i <= 6; i++) {
-            if (parseInt(getCookie("attempts" + i)) < 1) document.getElementById("attempts" + i).style.width = "1%";
-            else {
-                document.getElementById("attempts" + i).style.width =
-                    (((parseFloat(getCookie("attempts" + i)) / parseFloat(getCookie("attemptsTotal"))) / maxValue) * 100.0) + "%";
-
-                if (parseInt(getCookie("attempts" + i)) > 0) {
-                    document.getElementById("attempts" + i).textContent = getCookie("attempts" + i);
-                    document.getElementById("attempts" + i).style.color = "white";
-                }
-                else {
-                    document.getElementById("attempts" + i).style.width = "1%";
-                }
-            }
-        }
-    }
-    else {
-        for (var i = 1; i <= 6; i++) {
-            document.getElementById("attempts" + i).style.width = "1%";
         }
     }
 
@@ -221,50 +186,48 @@ function hideResults() {
     box.style.animationFillMode = 'forwards';
 }
 
-//Clears current animation value from any cell
-function clearAnimation(cell) {
-    cell.style.animationName = ''
-    cell.style.animationDuration = ''
-    cell.style.animationTimingFunction = ''
-}
-
 /*************************/
 /*PREPARING ALL VARIABLES*/
 /*************************/
 
 //To get both current attempt, and column the user will type on
 var canWrite = true;
+var canChange = true;
 var currentAttempt = 0;
 var currentPosition = 0;
+var currentPuzzle;
+var latestLevel;
+var answerData;
+var answerWord;
 
-//Getting current date and storing it in DD/MM/YYYY format
-var firstDay = new Date('2022-01-27');
 var today = new Date();
-
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
-today = dd + '/' + mm + '/' + yyyy;
 
-var todayCorrect = new Date(yyyy + '-' + mm + '-' + dd);
-var diffTime = Math.abs(todayCorrect - firstDay);
-daysSinceFirst = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-
-if (getCookie("attemptsTotal") == null) firstTimeCookies(today);
-
-//Getting answer to today's word, and storing all info needed
-let answerData;
-let answerWord;
+var allCharacters = []
+var inputBox = document.getElementById('currentpuzzle');
 
 fetch('answers.txt').then(response => response.text()).then(text => {
     var lines = text.split('\n');
     for (var line = 0; line < lines.length; line++) {
-        if (lines[line].startsWith(yyyy + "|" + mm + "|" + dd + "|")) {
-            answerData = lines[line].split("|");
-            answerWord = answerData[3];
+        if (lines[line].startsWith(yyyy + "|" + mm + "|" + dd + "|")) break;
+        if (lines[line].startsWith("20")) {
+            allCharacters.push(lines[line]);
         }
     }
+
+    currentPuzzle = allCharacters.length;
+    latestLevel = currentPuzzle;
+    answerData = String(allCharacters[currentPuzzle - 1]).split("|");
+    answerWord = String(answerData[3]);
+    inputBox.value = currentPuzzle;
+    document.getElementById("subtitle").innerHTML = "Currently playing Otakle #" + currentPuzzle;
 });
+
+document.getElementById("mainotakle").onclick = function () {
+    location.href = "https://kooloog.github.io/otakle/";
+};
 
 //Preparing the character list (valid terms user can input)
 let validCharacters = [];
@@ -292,9 +255,59 @@ function characterInfo() {
         "<div style=\"font-size:21px\">" + answerData[4] + "</div><div style=\"font-size:12px\">" + answerData[5] + "</div>";
 }
 
-document.getElementById("archivebutton").onclick = function () {
-    location.href = "https://kooloog.github.io/otakle/archive";
-};
+//Changes the puzzle (exclusive to the Archive version)
+function changePuzzle(instruction) {
+    if(canChange) {
+        currentAttempt = 0;
+        currentPosition = 0;
+
+        switch(instruction) {
+            case "first":
+                currentPuzzle = 1;
+                break;
+            case "prev":
+                if(currentPuzzle > 1) currentPuzzle--;
+                break;
+            case "next":
+                if(currentPuzzle < latestLevel) currentPuzzle++;
+                break;
+            case "last":
+                currentPuzzle = latestLevel;
+                break;
+            case "input":
+                var picked = inputBox.value;
+                if(picked < 1) currentPuzzle = 1;
+                else if(picked > latestLevel) currentPuzzle = latestLevel;
+                else currentPuzzle = picked;
+        }
+
+        inputBox.value = currentPuzzle;
+        document.getElementById("subtitle").innerHTML = "Currently playing Otakle #" + currentPuzzle;
+        answerData = String(allCharacters[currentPuzzle - 1]).split("|");
+        answerWord = String(answerData[3]);
+
+        for (var i = 0; i < 3; i++) {
+            var row = document.getElementById("keys").rows[i];
+
+            for (var j = 0; j < row.cells.length; j++) {
+                var cell = row.cells[j].getElementsByTagName('input')[0];
+                cell.style.backgroundColor = "#999";
+            }
+        }
+
+        hideResults();
+        document.activeElement.blur();
+        canWrite = true;
+
+        for (var i = 0; i < 6; i++) {
+            for (var j = 0; j < 5; j++) {
+                var cell = document.getElementById("grid").rows[i].cells[j];
+                defaultColor(cell);
+                cell.innerHTML = "";
+            }
+        }
+    }
+}
 
 //Inputs a letter in the current row
 function inputLetter(cell, pressedKey) {
@@ -364,7 +377,46 @@ function checkInList(wordToCheck) {
     else {
         if (validCharacters.includes(wordToCheck)) return true;
     }
-    return false;
+}
+    
+//Changes the color of a key in the keyboard
+function changeKeyColor(letter, type) {
+    var r = document.querySelector(':root');
+    var rs = getComputedStyle(r);
+
+    for (var i = 0; i < 3; i++) {
+        var row = document.getElementById("keys").rows[i];
+
+        for (var j = 0; j < row.cells.length; j++) {
+            var cell = row.cells[j].getElementsByTagName('input')[0];
+
+            if (cell.value == letter) {
+                cell.style.background = '#888888';
+            }
+        }
+
+        for (var j = 0; j < row.cells.length; j++) {
+            var cell = row.cells[j].getElementsByTagName('input')[0];
+            var color = cell.style.backgroundColor;
+
+            if (cell.value == letter) {
+                if (type == "1") { 
+                    cell.style.backgroundColor = rs.getPropertyValue('--misplaced'); 
+                }
+                if (type == "0") { 
+                    if(!color.includes('181, 159, 59') || !color.includes('133, 192, 249')) {
+                        cell.style.backgroundColor = rs.getPropertyValue('--correct'); 
+                    }
+                }
+                if (type == "2") { 
+                    if((!color.includes('181, 159, 59') || !color.includes('133, 192, 249') ) && 
+                        !color.includes('83, 141, 78') || !color.includes('245, 121, 58')) {
+                        cell.style.backgroundColor = '#333333'; 
+                    }
+                }
+            }
+        }
+    }
 }
 
 function checkWord() {
@@ -410,14 +462,15 @@ function checkWord() {
         //Assigning each cell a new color
         for (let i = 0; i < 5; i++) {
             var cell = document.getElementById("grid").rows[currentAttempt].cells[i];
+            canChange = false;
             colorAnimation(cell, positionScore[i], i);
             changeKeyColor(cell.innerHTML, positionScore[i]);
         }
 
-        setCookie("row" + (currentAttempt + 1), wordToCheck);
-
         //If the word has been guessed...
-        if (countGreens(positionScore) >= 5) {
+        if (countGreens(positionScore) >= 5) {      
+            canChange = false;
+
             switch (currentAttempt) {
                 case 0: message = "Perfect!"; break;
                 case 1: message = "Genius!"; break;
@@ -432,6 +485,7 @@ function checkWord() {
             setTimeout(function () { flashAnimation(currentAttempt); }, 1555);
             setTimeout(function () { showResults(currentAttempt); }, 4000);
             setTimeout(function () { hideMessage(); }, 4100);
+            setTimeout(function () { canChange = true; }, 5000);
         }
         else {
             currentPosition = 0;
@@ -444,6 +498,8 @@ function checkWord() {
                 setTimeout(function () { hideMessage(); }, 4100);
             }
             else setTimeout(function () { canWrite = true; }, 1400);
+
+            setTimeout(function () { canChange = true; }, 1500);
         }
     }
     else {
@@ -607,46 +663,4 @@ function changeDictionary() {
     else {
         deleteCookie("dictionary");
     }
-}
-
-//*********************//
-//INITIAL COOKIE CHECKS//
-//*********************//
-
-if(getCookie("colorblind")) {
-    var variables = document.querySelector(':root');
-    variables.style.setProperty('--correct', '#f5793a');
-    variables.style.setProperty('--misplaced', '#85c0f9');
-    document.getElementById("colorblind").checked = true;
-}
-
-if(getCookie("fonts")) {
-    changeToArial();
-    document.getElementById("basicFont").checked = true;
-}
-
-if(getCookie("dictionary")) {
-    document.getElementById("dictionary").checked = true;
-}
-
-if (today != getCookie("lastDate")) {
-    for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
-    deleteCookie("guessed");
-    setCookie("lastDate", today);
-}
-else {
-    setCookie("dictionary", "1");
-
-    for (var i = 1; i <= 6; i++) {
-        if (getCookie("row" + i)) {
-            for (var j = 0; j < 5; j++) {
-                var cell = document.getElementById("grid").rows[i - 1].cells[j];
-                var pressedKey = getCookie("row" + i).charAt(j);
-                inputLetter(cell, pressedKey);
-            }
-            setTimeout(function () { checkWord(); }, 500);
-        }
-    }
-
-    setTimeout(function () { deleteCookie("dictionary"); }, 3000);
 }

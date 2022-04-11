@@ -9,6 +9,7 @@
     <meta name="author" content="Roberto Moreno, @Kooloog_">
     <meta name="designer" content="Roberto Moreno, @Kooloog_">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="archive.css">
     <link rel="icon" type="image/x-icon" href="/resources/favicon.ico">
     <title>Otakle - Anime and Gaming Wordle</title>
 </head>
@@ -20,19 +21,29 @@
     <!-- HEADER -->
     <div class="mainheader">
         <div style="float: left;">
-            <input type="image" class="icon" src="resources/help.png" onclick="showHelp()"/>    
+            <input type="image" class="icon" src="resources/help.png" onclick="showHelp()" />
         </div>
         <div style="margin: auto;">
-            <h1 id="maintitle" style="font-family:anime;">Otakle</h1>
+            <h2 id="maintitle" style="font-family:anime;">Otakle Archive</h2>
         </div>
-        <div style="float: right;"><h1 style="font-family:anime;">
-            <input type="image" class="icon" src="resources/settings.png" onclick="showSettings()"/>  
+        <div style="float: right;">
+            <h1 style="font-family:anime;">
+                <input type="image" class="icon" src="resources/settings.png" onclick="showSettings()" />
         </div>
     </div>
-    <p id="subtitle" style="margin-top:-20px; font-size:14px; font-family:anime;">An anime/gaming character Wordle!</p>
+    <p id="subtitle" style="margin-top:-20px; font-size:16px; font-family:anime;"></p>
+
+    <!-- LEVEL SELECTION -->
+    <div class="selector">
+        <button onclick="changePuzzle('first')">FIRST</button>
+        <button onclick="changePuzzle('prev')">PREV</button>
+        <input id="currentpuzzle" type="number" onchange="changePuzzle('input')">
+        <button onclick="changePuzzle('next')">NEXT</button>
+        <button onclick="changePuzzle('last')">LAST</button>
+    </div>
 
     <!-- GRID -->
-    <table class='center', id='grid'>
+    <table class='center' , id='grid'>
         <tr>
             <td class="cell"></td>
             <td class="cell"></td>
@@ -75,10 +86,10 @@
             <td class="cell"></td>
             <td class="cell"></td>
         </tr>
-    </table></br></br>
+    </table></br>
 
     <!-- KEYBOARD -->
-    <table class='center', id='keys'>
+    <table class='center' , id='keys'>
         <tr>
             <td class='keyboard'><input class='keybutton' type='button' value='Q' onclick='keyboardKey(this);' /></td>
             <td class='keyboard'><input class='keybutton' type='button' value='W' onclick='keyboardKey(this);' /></td>
@@ -127,9 +138,11 @@
             <input type="button" class="xbuttonsidemenu" value="X" onClick="hideHelp();"></input>
             <H3>HOW TO PLAY</H3>
             <div style="border-bottom: 1px solid gray">
-                <br>Guess the <b>OTAKLE</b> in 6 tries.<br><br>       
-                Each guess must be a valid five-letter character from any anime or video game. Hit the enter button to submit. <br><br>
-                After each guess, the color of the tiles will change to show how close your guess was to the answer. <br><br>
+                <br>Guess the <b>OTAKLE</b> in 6 tries.<br><br>
+                Each guess must be a valid five-letter character from any anime or video game. Hit the enter button to
+                submit. <br><br>
+                After each guess, the color of the tiles will change to show how close your guess was to the answer.
+                <br><br>
             </div>
 
             <H4>EXAMPLES</H4>
@@ -201,14 +214,15 @@
             </div>
 
             <div class="option">
-                <div style="float:left; font-size:16px;">Developed by <a href="https://twitter.com/KologDev">@KologDev</a></div>
+                <div style="float:left; font-size:16px;">Developed by <a
+                        href="https://twitter.com/KologDev">@KologDev</a></div>
             </div>
             More options coming soon, feel free to request any!
         </div>
     </div>
 
     <!-- RESULTS -->
-    <div id="results" class="results">
+    <div id="results" class="resultsArchive">
         <input type="button" class="xbutton" value="X" onClick="hideResults();"></input>
         <table>
             <tr>
@@ -220,49 +234,10 @@
             </tr>
             <tr>
                 <td colspan=2 style="padding:8px;">
-                    <table style="width:97%">
-                        <p>Guess Distribution</p>
-                        <tr>
-                            <td style="width:5%">1</td>
-                            <td>
-                                <div id="attempts1" class="bargraph">.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:5%">2</td>
-                            <td>
-                                <div id="attempts2" class="bargraph">.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:5%">3</td>
-                            <td>
-                                <div id="attempts3" class="bargraph">.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:5%">4</td>
-                            <td>
-                                <div id="attempts4" class="bargraph">.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:5%">5</td>
-                            <td>
-                                <div id="attempts5" class="bargraph">.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:5%">6</td>
-                            <td>
-                                <div id="attempts6" class="bargraph">.</div>
-                            </td>
-                        </tr>
-                    </table>
                     <div style="padding-top:20px">
                         <input type="button" class="copybutton" value="Copy result to clipboard"
                             onClick="copyToClipboard();"></input>
-                        <input type="button" id="archivebutton" class="redirectbutton" value="More puzzles in Otakle archive!"></input>
+                        <input id="mainotakle" type="button" class="redirectbutton" value="Play today's Otakle!"></input>
                     </div>
                 </td>
             </tr>
@@ -273,6 +248,6 @@
 
 </body>
 
-<script src="functions.js"></script>
+<script src="archive.js"></script>
 
 </html>
