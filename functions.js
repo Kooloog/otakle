@@ -22,7 +22,7 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     if (getCookie(name)) {
-        document.cookie = name +'=; Path=/otakle; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 }
 
@@ -612,6 +612,14 @@ function changeDictionary() {
 //*********************//
 //INITIAL COOKIE CHECKS//
 //*********************//
+
+//DELETE AFTER JULY 09
+if(getCookie("row1") && dd == "09" && getCookie("bugfixspyro") == null) {
+    deleteCookie("guessed");
+    for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
+    setCookie("bugfixspyro", "yes");
+}
+///////////////////////////////////
 
 if(getCookie("colorblind")) {
     var variables = document.querySelector(':root');
