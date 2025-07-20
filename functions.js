@@ -22,7 +22,7 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     if (getCookie(name)) {
-        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = name +'=; Path=/otakle; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 }
 
@@ -238,7 +238,7 @@ var currentAttempt = 0;
 var currentPosition = 0;
 
 //Getting current date and storing it in DD/MM/YYYY format
-var firstDay = new Date('2022-01-27');
+var firstDay = new Date('2025-07-19');
 var today = new Date();
 
 var dd = String(today.getDate()).padStart(2, '0');
@@ -612,14 +612,6 @@ function changeDictionary() {
 //*********************//
 //INITIAL COOKIE CHECKS//
 //*********************//
-
-//DELETE AFTER JULY 09
-if(getCookie("row1") && dd == "09" && getCookie("bugfixspyro") == null) {
-    deleteCookie("guessed");
-    for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
-    setCookie("bugfixspyro", "yes");
-}
-///////////////////////////////////
 
 if(getCookie("colorblind")) {
     var variables = document.querySelector(':root');
