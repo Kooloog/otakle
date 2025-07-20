@@ -629,7 +629,7 @@ if(getCookie("dictionary")) {
     document.getElementById("dictionary").checked = true;
 }
 
-if (today != getCookie("lastDate") || today ) {
+if (today != getCookie("lastDate")) {
     for (var i = 1; i <= 6; i++) deleteCookie("row" + i);
     deleteCookie("guessed");
     setCookie("lastDate", today);
