@@ -101,3 +101,5 @@ YOU HAVE BEEN WARNED
 2025|07|20|CRONA|CRONA|SOUL EATER|https://drive.google.com/thumbnail?id=1ceZQxsiZlyxJYplK9xgjYRkpRIn0-9Nh&sz=w1000
 2025|07|21|STARK|STARK|FRIEREN|https://drive.google.com/thumbnail?id=1xpMs6-cLjuwAK0vLAB8S6LPqkqUGTwAx&sz=w1000
 2025|07|22|TAIGA|TAIGA AISAKA|TORADORA!|https://drive.google.com/thumbnail?id=1qi2npm0YpswAQh8-mDqweK11kd0Rr8Or&sz=w1000
+2025|07|23|FALIN|FALIN TOUDEN|DELICIOUS IN DUNGEON|https://drive.google.com/thumbnail?id=1qi2npm0YpswAQh8-mDqweK11kd0Rr8Or&sz=w1000
+2025|07|24|RANPO|RANPO EDOGAWA|BUNGOU STRAY DOGS|https://drive.google.com/thumbnail?id=1qi2npm0YpswAQh8-mDqweK11kd0Rr8Or&sz=w1000
