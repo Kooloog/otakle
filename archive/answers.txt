@@ -113,3 +113,6 @@ YOU HAVE BEEN WARNED
 2025|08|01|NATSU|NATSU DRAGNEEL|FAIRY TAIL|https://drive.google.com/thumbnail?id=13aVhuN0JI50CG5OMRKoD1U0OVXo8NOd0&sz=w1000
 2025|08|02|TOBIO|TOBIO KAGEYAMA|HAIKYUU!|https://drive.google.com/thumbnail?id=1QdoDDIFchSxwHs-gZ-CwiQMyVRrDEGQ-&sz=w1000
 2025|08|03|FIONA|FIONA FROST|SPY X FAMILY|https://drive.google.com/thumbnail?id=1DgMOKgYEot2oT2t8gl_WeTwVJ9D8GmnA&sz=w1000
+2025|08|04|ROHAN|ROHAN KISHIBE|JOJO'S BIZARRE ADVENTURE: DIAMOND IS UNBREAKABLE|https://drive.google.com/thumbnail?id=1VBdWXhXgnEaLv23qT5Tye82bJ6XmWDWe&sz=w1000
+2025|08|05|AKANE|AKANE KUROKAWA|OSHI NO KO|https://drive.google.com/thumbnail?id=1TjuRfoPYyIyKuwMFLDNdgrzwBLzPJqSu&sz=w1000
+2025|08|06|IZUMI|IZUMI MIYAMURA|HORIMIYA|https://drive.google.com/thumbnail?id=10gbAMaGUnVtHbOAXQioGQzXmtP8-HtlF&sz=w1000
